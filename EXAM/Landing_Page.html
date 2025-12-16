@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Landing Page</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="styles.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        
+        <script src="https://kit.fontawesome.com/6d7d3494f0.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="page-container">
+            <header class="shopbrand">
+                <img src="images/Escapade_Logo.png" alt="Escapade Cafe Logo" class="logo-icon">
+                <h1 class="tagline-line-1">GREAT COFFEE,</h1>
+                <h2 class="tagline-line-2">GREATER GETAWAY</h2>
+            </header>
+
+            <main class="access-selection">
+                <p class="title-text">ACCESS APPLICATION AS:</p>
+                
+                <div class="access-options">
+                    <a href="#" class="option-card admin-card" data-bs-toggle="modal" data-bs-target="#adminLoginModal">
+                        <i class="icon fas fa-user-shield"></i> 
+                        <p class="role-label">Admin</p>
+                    </a>
+                    <a href="#" class="option-card cashier-card" data-bs-toggle="modal" data-bs-target="#cashierLoginModal">
+                        <i class="icon fas fa-cash-register"></i> 
+                        <p class="role-label">Cashier</p>
+                    </a>
+                </div>
+            </main>
+            <div class="bottomspace"></div>
+        </div>
+
+        <!--Admin Modal-->
+        <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true" 
+        onhidden.bs.modal="clearAdminForm()">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custom-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adminModalLabel">Admin Login</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="verifyAdmin.php" method="POST" id="admin-login-form" autocomplete="off">
+                    
+                    <div class="mb-3">
+                        <label for="adminName" class="form-label modal-label">Admin Name</label>
+                        <input type="text" class="form-control" id="adminName" name="admin_name" maxlength="50" required placeholder="Enter username" autocomplete="new-username">
+                    </div>
+                    
+                    <div class="mb-3 password-container">
+                        <label for="adminPassword" class="form-label modal-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="adminPassword" name="admin_password" maxlength="50" required placeholder="Enter Password" autocomplete="new-password">
+                            <button class="btn btn-outline-secondary" type="button" id="toggleAdminPassword" onclick="togglePasswordVisibility('adminPassword', 'toggleAdminPassword')">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary submit-btn">Login</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Cashier Modal-->
+        <div class="modal fade" id="cashierLoginModal" tabindex="-1" aria-labelledby="cashierModalLabel" aria-hidden="true" 
+        onhidden.bs.modal="clearCashierForm()">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custom-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cashierModalLabel">Cashier Login</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="verifyCashier.php" method="POST" id="cashier-login-form" autocomplete="off">
+                    
+                    <div class="mb-3">
+                        <label for="cashierName" class="form-label modal-label">Cashier Name</label>
+                        <input type="text" class="form-control" id="cashierName" name="cashier_name" maxlength="50" required placeholder="Enter username" autocomplete="new-username">
+                    </div>
+                    
+                    <div class="mb-3 password-container">
+                        <label for="cashierPassword" class="form-label modal-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="cashierPassword" name="cashier_password" maxlength="50" required placeholder="Enter Password" autocomplete="new-password">
+                            <button class="btn btn-outline-secondary" type="button" id="toggleCashierPassword" onclick="togglePasswordVisibility('cashierPassword', 'toggleCashierPassword')">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary submit-btn">Login</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body"></div>
+        </div>
+        </div>
+
+        <div class="modal fade" id="accessOptionsModal" tabindex="-1" aria-labelledby="optionsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custom-modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="optionsModalLabel" style="text-align: center; width: 100%; color: var(--color-gold);">Welcome!</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p id="options-greeting">Please select an option:</p>
+                        <div id="options-button-container" class="d-grid gap-3 mt-4">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            /* --- STATE & FORMS --- */
+            let loginAttempts = 0;
+            const MAX_ATTEMPTS = 3;
+
+            const adminLoginForm = document.getElementById('admin-login-form');
+            const cashierLoginForm = document.getElementById('cashier-login-form');
+
+            /* --- BOOTSTRAP MODALS --- */
+            const adminLoginModal = new bootstrap.Modal(document.getElementById('adminLoginModal'));
+            const cashierLoginModal = new bootstrap.Modal(document.getElementById('cashierLoginModal'));
+            const accessOptionsModal = new bootstrap.Modal(document.getElementById('accessOptionsModal'));
+
+            const optionsTitle = document.getElementById('optionsModalLabel');
+            const optionsButtonContainer = document.getElementById('options-button-container');
+
+            /* --- OPTIONS MODAL BUTTON SETS --- */
+            const ADMIN_BUTTONS = `
+                <button type="button"
+                    class="btn btn-warning submit-btn"
+                    onclick="window.location.href='menu.php'">
+                    Take Order
+                </button>
+
+                <button type="button" class="btn btn-custom-light" onclick="window.location.href='admin_sales_report.php'">Trend Report</button>
+                <button type="button" class="btn btn-custom-light" onclick="window.location.href='admin_manage_menu.php'">Manage Menu Items</button>
+                
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
+            `;
+
+            const CASHIER_BUTTONS = `
+                <button type="button"
+                    class="btn btn-warning submit-btn"
+                    onclick="window.location.href='menu.php'">
+                    Take Order
+                </button>
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
+            `;
+
+            /* --- SHOW OPTIONS MODAL --- */
+            function showOptionsModal(role, name) {
+                optionsTitle.textContent = `Welcome, ${name}!`;
+
+                if (role === 'Admin') {
+                    optionsButtonContainer.innerHTML = ADMIN_BUTTONS;
+                } else {
+                    optionsButtonContainer.innerHTML = CASHIER_BUTTONS;
+                }
+
+                accessOptionsModal.show();
+            }
+
+            /* --- TOAST NOTIFICATIONS --- */
+            function showToast(message, isSuccess = false) {
+                const toastEl = document.getElementById('liveToast');
+                const toastBody = toastEl.querySelector('.toast-body');
+
+                toastEl.classList.remove('bg-success', 'bg-danger');
+                toastEl.classList.add(isSuccess ? 'bg-success' : 'bg-danger');
+
+                toastBody.textContent = message;
+                new bootstrap.Toast(toastEl).show();
+            }
+
+            /* --- PASSWORD VISIBILITY TOGGLE --- */
+            function togglePasswordVisibility(fieldId, buttonId) {
+                const passwordField = document.getElementById(fieldId);
+                const icon = document.querySelector(`#${buttonId} i`);
+
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.classList.replace('fa-eye-slash', 'fa-eye');
+                } else {
+                    passwordField.type = 'password';
+                    icon.classList.replace('fa-eye', 'fa-eye-slash');
+                }
+            }
+
+            /* --- CLEAR ADMIN FORM --- */
+            function clearAdminForm() {
+                loginAttempts = 0;
+                adminLoginForm.reset();
+
+                const passwordField = document.getElementById('adminPassword');
+                const icon = document.querySelector('#toggleAdminPassword i');
+
+                passwordField.type = 'password';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+
+            /* --- CLEAR CASHIER FORM --- */
+            function clearCashierForm() {
+                loginAttempts = 0;
+                cashierLoginForm.reset();
+
+                const passwordField = document.getElementById('cashierPassword');
+                const icon = document.querySelector('#toggleCashierPassword i');
+
+                passwordField.type = 'password';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+
+            /* --- ADMIN LOGIN --- */
+            adminLoginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                fetch('verifyAdmin.php', {
+                    method: 'POST',
+                    body: new FormData(this)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showToast(data.message, true);
+                        adminLoginModal.hide();
+
+                        setTimeout(() => {
+                            showOptionsModal('Admin', data.name || 'Admin');
+                        }, 400);
+
+                    } else if (data.reason === 'password') {
+                        loginAttempts++;
+                        loginAttempts < MAX_ATTEMPTS
+                            ? showToast(`Incorrect Inputs! ${MAX_ATTEMPTS - loginAttempts} attempts left.`)
+                            : (showToast("Max attempts reached. Access denied."), adminLoginModal.hide());
+                    } else {
+                        showToast("No user found with that Admin Name.");
+                    }
+                })
+                .catch(() => showToast("Network error during login attempt."));
+            });
+
+            /* --- CASHIER LOGIN --- */
+            cashierLoginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                fetch('verifyCashier.php', {
+                    method: 'POST',
+                    body: new FormData(this)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showToast(data.message, true);
+                        cashierLoginModal.hide();
+
+                        setTimeout(() => {
+                            showOptionsModal('Cashier', data.name || 'Cashier');
+                        }, 400);
+
+                    } else if (data.reason === 'password') {
+                        loginAttempts++;
+                        loginAttempts < MAX_ATTEMPTS
+                            ? showToast(`Incorrect Inputs! ${MAX_ATTEMPTS - loginAttempts} attempts left.`)
+                            : (showToast("Max attempts reached. Access denied."), cashierLoginModal.hide());
+                    } else {
+                        showToast("No user found with that Cashier Name.");
+                    }
+                })
+                .catch(() => showToast("Network error during login attempt."));
+            });
+
+            /* --- RESET FORMS ON MODAL CLOSE --- */
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('adminLoginModal')
+                    .addEventListener('hidden.bs.modal', clearAdminForm);
+
+                document.getElementById('cashierLoginModal')
+                    .addEventListener('hidden.bs.modal', clearCashierForm);
+            });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,326 @@
+
+:root { /* added a lot of colors here for experimenting sorryy */
+    --color-gold: #D4AF37; 
+    --color-off-white: #FAF9F6;
+    --color-bronze: #B87333;
+    --color-ivory: #F0EAD6;
+    --color-garnet: #800020;
+    --color-emerald: #004F4F;
+    --font-playfair: 'Playfair Display', serif;
+    --font-roboto: 'Roboto', sans-serif;
+    --font-spartan: 'League Spartan', sans-serif;
+    --font-anton: 'Anton', sans-serif;
+    --color-icon: #EBE0A0; 
+    --brown-latte: #D9C4A8;
+    --brown-cream: #E8D9C4;
+    --brown-vanilla: #F3E7D3;
+    --brown-milkfoam: #F2E8DA;
+
+    --brown-caramel: #C6A67B;
+    --brown-taupe: #B79A78;
+    --brown-macchiato: #A88A67;
+    --brown-sand: #CBB89D;
+
+    --brown-goldsoft: #C8A96E;
+    --brown-honey: #D4B679;
+    --brown-butterscotch: #E2C799;
+    --brown-warmgold: #BFA270;
+
+    --brown-smoke: #8B7765;
+    --brown-stone: #A19282;
+    --brown-softshadow: #7A6A5A;
+}
+
+/* --- Base Setup --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    
+    background-image: url('images/Landing_bg.png');
+    background-size: cover;
+    background-position: left center;
+    background-attachment:fixed;
+    min-height: 100vh;
+    color: var(--color-off-white);
+}
+
+.page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+
+.shopbrand {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-icon {
+    width: 230px; 
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    margin-left: 145px;
+}
+
+.tagline-line-1 {
+    font-family: var(--font-roboto);
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--color-off-white);
+    margin-bottom: 0;
+}
+
+.tagline-line-2 {
+    font-family: var(--font-spartan);
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--color-gold);
+    margin-top: 0;
+}
+
+
+.access-selection {
+    /* Pushes the access box to the right side of the screen */
+    margin-left: auto; 
+    margin-right: 30px;
+    text-align: center;
+}
+
+.title-text {
+    /*yung "ACCESS APPLICATION AS:" text */
+
+    font-family: var(--font-playfair); 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    letter-spacing: 0.15em; 
+    margin-bottom: 50px;
+    color: var(--color-off-white); 
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4); 
+}
+
+.access-options {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+}
+
+/* Option Cards */
+.option-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; 
+    
+    width: 340px; 
+    height: 420px; 
+    padding: 50px;
+    
+    
+    border-radius: 30px; 
+    
+    
+    background-color: rgba(116, 81, 35, 0.25); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px); 
+    
+   
+    border: 1px solid rgba(235, 224, 160, 0.3);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.option-card:hover {
+    /* pa-hover effect */
+    transform: translateY(-5px);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* --- para sa icons and labels --- */
+.icon {
+   
+    font-size: 150px; 
+    margin-bottom: 20px; 
+    color: var(--color-icon); 
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6); 
+}
+
+.role-label {
+    /* Admin and Cashier label  */
+    font-family: var(--font-anton); 
+    font-size: 2.6rem; 
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    color: var(--color-off-white);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}
+
+/* --- for mobile adjustments --- */
+@media (max-width: 900px) {
+    .page-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+    
+    .shopbrand {
+        position: static;
+        margin-bottom: 50px;
+    }
+    
+    .access-selection {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .access-options {
+        flex-direction: column; 
+        gap: 20px;
+    }
+
+    .logo-icon {
+        width: 150px; 
+        margin-left: 0;
+    }
+    
+    /* Adjust card size for mobile */
+    .option-card {
+        width: 100%; /* Take up full width */
+        height: 250px;
+    }
+
+    .icon {
+        font-size: 90px;
+    }
+
+    .role-label {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- MODALS --- */
+
+.btn-custom-light {
+    font-family: var(--font-spartan);
+    background-color: var(--color-off-white);
+    border-color: var(--color-off-white);
+    color: #1a1a1a; 
+    font-weight: 700;
+}
+
+.btn-custom-light:hover {
+    background-color: #E6E5E0; 
+    border-color: #E6E5E0;
+    color: #1a1a1a; 
+}
+
+.modal-content {
+    background-color: #1a1a1a; /* Dark background for the modal */
+    border: 1px solid var(--color-gold);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    font-family: var(--font-playfair);
+    color: var(--color-gold);
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    
+}
+
+.btn-close {
+    /* Style the close button to be visible against dark background */
+    filter: invert(1) grayscale(100%) brightness(200%); 
+}
+
+.modal-label {
+    font-family: var(--font-roboto);
+    color: var(--color-off-white);
+    margin-bottom: 5px;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-off-white);
+    border: 1px solid var(--color-gold);
+    border-radius: 8px;
+}
+
+/*pang-change ng color ng placeholders, madaming versions for diff web servers */
+.modal-content .form-control::placeholder {
+    color: rgba(212, 175, 55, 0.7) !important;
+    opacity: 1 !important;
+}
+
+input.form-control::placeholder {
+    color: rgba(212, 175, 55, 0.7) !important;
+}
+
+.form-control::placeholder {
+    color: rgba(212, 175, 55, 0.7)!important; 
+    opacity: 1; /* For Chrome, Safari, modern Edge */
+}
+
+.form-control::-moz-placeholder {
+    color: rgba(212, 175, 55, 0.7)!important; 
+    opacity: 1; /* For Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+    color: rgba(212, 175, 55, 0.7)!important;
+    /* For Internet Explorer/Legacy Edge */
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.5); 
+    color: var(--color-off-white);
+}
+
+.submit-btn {
+    font-family: var(--font-spartan);
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: #1a1a1a; 
+    font-weight: 700;
+}
+
+.submit-btn:hover {
+    background-color: #C0A132; 
+    border-color: #C0A132;
+}
+
+.input-group .btn-outline-secondary {
+    /* Base style for the button */
+    border: 1px solid var(--color-gold);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-gold); 
+    border-radius: 0 8px 8px 0; /* Keep the right corners rounded */
+}
+
+.input-group .btn-outline-secondary:hover {
+    /* Hover effect */
+    background-color: rgba(212, 175, 55, 0.2);
+    color: var(--color-gold);
+}
