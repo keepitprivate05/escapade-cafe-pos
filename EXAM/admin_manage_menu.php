@@ -3,13 +3,13 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// --- Database Connection ---
+//  Database 
 $conn = sqlsrv_connect("Tys-PC\\SQLEXPRESS", ["Database" => "DLSU"]);
 if (!$conn) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-// --- Image Upload Function ---
+// Image Upload 
 function uploadImage($key = 'product_image') {
     if (!isset($_FILES[$key]) || $_FILES[$key]['error'] === UPLOAD_ERR_NO_FILE) {
         return null;
@@ -31,7 +31,7 @@ function uploadImage($key = 'product_image') {
     return $path;
 }
 
-/* --- ADD Item Logic --- */
+/* ADD Item    */
 if (isset($_POST['add_item'])) {
     $img = uploadImage();
     sqlsrv_query(
@@ -53,7 +53,7 @@ if (isset($_POST['add_item'])) {
     );
 }
 
-/* --- EDIT Item Logic --- */
+/* EDIT Item */
 if (isset($_POST['edit_item'])) {
     $img = uploadImage();
 
@@ -84,12 +84,12 @@ if (isset($_POST['edit_item'])) {
     sqlsrv_query($conn, $sql, $params);
 }
 
-/* --- DELETE Item Logic --- */
+/*DELETE Item  */
 if (isset($_POST['delete_item'])) {
     sqlsrv_query($conn, "DELETE FROM MENU_ITEMS WHERE PRODUCT_ID=?", [$_POST['product_id']]);
 }
 
-/* --- FETCH Data --- */
+/* Get Data */
 $items = sqlsrv_query(
     $conn,
     "
@@ -222,7 +222,7 @@ body {
 </div>
 
 
-<!--Adding an item-->
+<!--Add form-->
 
 <div class="modal fade" id="addModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -264,7 +264,7 @@ body {
                                    required>
                         </div>
 
-                        <!-- PRICES -->
+                        <!-- prices -->
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Base Price *</label>
@@ -281,7 +281,7 @@ body {
                             <input type="number" step="0.01" id="price_large" name="l_price" class="form-control" placeholder="₱ 0.00" min="0.01">
                         </div>
 
-                        <!-- DESCRIPTION -->
+                        <!-- desc -->
                         <div class="col-12">
                             <label class="form-label fw-semibold">
                                 Description
@@ -292,7 +292,7 @@ body {
                                       placeholder="Short description of the item"></textarea>
                         </div>
 
-                        <!-- IMAGE -->
+                        <!-- img -->
                         <div class="col-12">
                             <label class="form-label fw-semibold">
                                 Product Image (JPEG / PNG)
@@ -602,4 +602,5 @@ function openDeleteModal(id, name) {
 </script>
 
 </body>
+
 </html>
