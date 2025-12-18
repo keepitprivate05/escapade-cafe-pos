@@ -52,7 +52,7 @@ if (sqlsrv_fetch($stmt) !== false) {
     ]);
         
     } else {
-        // DENY ENTRY: Password mismatch
+        // Password mismatch
         echo json_encode(['status' => 'failure', 'reason' => 'password']);
     }
 } else {
@@ -63,5 +63,6 @@ if (sqlsrv_fetch($stmt) !== false) {
 // Cleanup
 sqlsrv_free_stmt($stmt);
 sqlsrv_close($conn);
+
 
 ?>
