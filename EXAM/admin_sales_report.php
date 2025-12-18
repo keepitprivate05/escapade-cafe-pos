@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-/* DB CONNECTION */
+/* dbase */
 $conn = sqlsrv_connect("Tys-PC\\SQLEXPRESS", ["Database" => "DLSU"]);
 if (!$conn) die(print_r(sqlsrv_errors(), true));
 
-/* FILTERS */
+/* filters */
 $startDate = $_GET['start_date'] ?? date('Y-m-d', strtotime('-30 days'));
 $endDate   = $_GET['end_date'] ?? date('Y-m-d');
 $period    = $_GET['period'] ?? 'daily';
@@ -15,7 +15,7 @@ if (!strtotime($startDate) || !strtotime($endDate)) {
     $endDate   = date('Y-m-d');
 }
 
-/* PERIOD LOGIC */
+/* period logic */
 switch ($period) {
     case 'weekly':
         $groupBy = "
@@ -46,7 +46,7 @@ switch ($period) {
         $label   = "CONVERT(VARCHAR(10), MIN(ORDER_DATE), 23)";
 }
 
-/* SALES DATA */
+/* Get Data */
 $sales = [];
 $q1 = sqlsrv_query($conn, "
     SELECT 
@@ -61,7 +61,7 @@ $q1 = sqlsrv_query($conn, "
 if ($q1 === false) die(print_r(sqlsrv_errors(), true));
 while ($r = sqlsrv_fetch_array($q1, SQLSRV_FETCH_ASSOC)) $sales[] = $r;
 
-/* TOP PRODUCTS */
+/* For top prods */
 $products = [];
 $q2 = sqlsrv_query($conn, "
     SELECT TOP 5 PRODUCT_NAME, SUM(QUANTITY) qty
@@ -144,7 +144,7 @@ body{
     <i class="fas fa-chart-line me-2"></i>Sales Report
 </h4>
 
-<!-- FILTERS -->
+<!-- Filters -->
 <div class="filter-box">
 <form method="GET" class="row g-3 align-items-end">
     <div class="col-md-3">
@@ -171,7 +171,7 @@ body{
 </form>
 </div>
 
-<!-- CHARTS -->
+<!-- The CHARTS -->
 <div class="row g-4">
     <div class="col-lg-8">
         <div class="chart-box">
@@ -248,3 +248,4 @@ new Chart(document.getElementById('productChart'),{
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
