@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-// Save logged-in user
+// get logged-in userrr
 $clerkName = $_SESSION['user_name'] ?? 'Cashier';
 $userRole = $_SESSION['user_role'] ?? 'Cashier';
 
-// DB connection
+// Dbase
 $serverName = "Tys-PC\\SQLEXPRESS";
 $connectionOptions = ["Database" => "DLSU"];
 $conn = sqlsrv_connect($serverName, $connectionOptions);
@@ -197,12 +197,12 @@ sqlsrv_close($conn);
     </section>
 
 
-        <!-- CART SIDEBAR -->
+        <!-- sidebar for cart -->
         <aside class="cart-sidebar-panel">
 
             <h3 class="cart-title">Your Cart</h3>
 
-            <!-- Cart Content Area -->
+            <!-- Cart Area -->
             <div id="cartBox" class="cart-content-area">
                 <div class="empty-cart">
                     <i class="fas fa-shopping-cart large-cart-icon"></i>
@@ -210,7 +210,7 @@ sqlsrv_close($conn);
                 </div>
             </div>
 
-            <!-- Subtotal -->
+            <!-- Subtotal (wala pang disc) -->
             <div class="cart-subtotal-area">
                 <p class="subtotal-label">Subtotal:</p>
                 <p class="subtotal-value">₱ <span id="cartSubtotal">0.00</span></p>
@@ -226,7 +226,7 @@ sqlsrv_close($conn);
 
     </div>
 
-        <!-- REMOVE ITEM CONFIRM MODAL -->
+        <!-- Remove item modal block -->
         <div class="modal fade" id="removeItemModal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content item-modal">
@@ -254,9 +254,9 @@ sqlsrv_close($conn);
 
 </div>
 
-<!-- ============================ -->
-<!-- DRINK MODAL -->
-<!-- ============================ -->
+
+<!-- modal for drinks -->
+
 <div class="modal fade" id="drinkModal">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content item-modal">
@@ -304,9 +304,9 @@ sqlsrv_close($conn);
     </div>
 </div>
 
-<!-- ============================ -->
-<!-- FOOD MODAL -->
-<!-- ============================ -->
+
+<!-- modal for non-drinks -->
+
 <div class="modal fade" id="foodModal">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content item-modal">
@@ -346,9 +346,8 @@ sqlsrv_close($conn);
     </div>
 </div>
 
-<!-- ============================ -->
-<!-- JAVASCRIPT -->
-<!-- ============================ -->
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -362,17 +361,17 @@ let itemToDeleteIndex = null;
 let suggestionPicked = false;
 let currentProductId = null;
 
-/* ----------------------------- */
-/* INITIAL LOAD */
-/* ----------------------------- */
+
+/* setup */
+
 document.addEventListener("DOMContentLoaded", () => {
     itemCards = Array.from(document.querySelectorAll(".menu-item-card"));
     document.querySelector('.category-btn[data-category="all"]').click();
 });
 
-/* ----------------------------- */
-/* CATEGORY FILTERING */
-/* ----------------------------- */
+
+/* category filters */
+
 function loadAllCategories() {
     const grid = document.querySelector(".item-display-grid");
     grid.innerHTML = "";
@@ -417,9 +416,9 @@ document.querySelectorAll(".category-btn").forEach(btn => {
     });
 });
 
-/* ----------------------------- */
-/* ITEM MODALS */
-/* ----------------------------- */
+
+/* modals for item pop-upss */
+
 let drinkUnitPrice = 0;
 let foodUnitPrice = 0;
 
@@ -478,12 +477,12 @@ function openItemModal(card) {
     new bootstrap.Modal(document.getElementById("foodModal")).show();
 }
 
-/* ----------------------------- */
-/* QTY BUTTONS */
-/* ----------------------------- */
+
+/* QNTY BUTTONS */
+
 function keepMin1(n) { return Math.max(1, n); }
 
-/* DRINK */
+/* for drinks */
 drinkPlusBtn.onclick = () => {
     let qty = keepMin1(+drinkQty.textContent + 1);
     drinkQty.textContent = qty;
@@ -496,7 +495,7 @@ drinkMinusBtn.onclick = () => {
     drinkPrice.textContent = (drinkUnitPrice * qty).toFixed(2);
 };
 
-/* FOOD */
+/* for non-drink */
 foodPlusBtn.onclick = () => {
     let qty = keepMin1(+foodQty.textContent + 1);
     foodQty.textContent = qty;
@@ -509,9 +508,9 @@ foodMinusBtn.onclick = () => {
     foodPrice.textContent = (foodUnitPrice * qty).toFixed(2);
 };
 
-/* ----------------------------- */
+
 /* ADD TO CART */
-/* ----------------------------- */
+
 function addItemToCart(productId, name, size, unitPrice, qty) {
     const match = cartItems.find(item => item.name === name && item.size === size);
 
@@ -532,7 +531,7 @@ function allowCheckout() {
     return true;
 }
 
-/* DRINK ADD */
+/* adding drinks */
 document.getElementById("addDrinkCartBtn").onclick = () => {
     const name = drinkTitle.textContent;
     const qty = +drinkQty.textContent;
@@ -544,7 +543,7 @@ document.getElementById("addDrinkCartBtn").onclick = () => {
     bootstrap.Modal.getInstance(document.getElementById("drinkModal")).hide();
 };
 
-/* FOOD ADD */
+/* adding food to cart */
 document.getElementById("addFoodCartBtn").onclick = () => {
     const name = foodTitle.textContent;
     const qty = +foodQty.textContent;
@@ -555,7 +554,7 @@ document.getElementById("addFoodCartBtn").onclick = () => {
 };
 
 
-/* RENDER CART */
+/* show cart */
 
 function renderCart() {
     const cartBox = document.getElementById("cartBox");
@@ -782,3 +781,4 @@ backToMenuBtn.onclick = () => {
 
 </body>
 </html>
+
